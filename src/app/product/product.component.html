@@ -1,0 +1,48 @@
+<div class="main">
+  <div class="main-container">
+    <div class="container-title">Termék</div>
+    <div class="container-content">
+      <mat-card class="product-image-card">
+        <mat-card-content class="product-image">
+          <img mat-card-image src="sample.png">
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="product-details-card">
+        <mat-card-header>
+          <mat-card-title>NVIDIA RTX 4090</mat-card-title>
+          <mat-card-subtitle>Ár: 499.999 Ft</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Ez egy nagyon jó videokártya, amely kiváló teljesítményt nyújt a legújabb játékokhoz.</p>
+          <table>
+            <tr>
+              <th>Jellemzők</th>
+              <th>Érték</th>
+            </tr>
+            <tr>
+              <td>Gyors</td>
+              <td>Igen</td>
+            </tr>
+            <tr>
+              <td>Fasza</td>
+              <td>Igen</td>
+            </tr>
+          </table>
+          <div class="numeric-up-down">
+            <button (click)="removeFromAmount()"><mat-icon>remove</mat-icon></button>
+            <span>{{amount}}</span>
+            <button (click)="addToAmount()"><mat-icon>add</mat-icon></button>
+          </div>
+
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-fab extended color="primary">
+            <mat-icon>shopping_cart</mat-icon>
+            Kosárba teszem
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

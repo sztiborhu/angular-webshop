@@ -1,0 +1,24 @@
+mat-card {
+  min-width: 200px;
+  width: 100%;
+}
+
+img {
+  padding: 25px;
+}
+
+.card-title {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.card-price {
+
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+
