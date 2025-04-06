@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import {MatSidenavContainer, MatSidenavModule} from '@angular/material/sidenav';
-import {MatButton, MatIconButton, MatMiniFabButton} from '@angular/material/button';
+import {Component} from '@angular/core';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconButton} from '@angular/material/button';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatIcon} from '@angular/material/icon';
 import {MenuComponent} from './shared/menu/menu.component';
-import {RouterOutlet} from '@angular/router';
+import {Router, RouterLink, RouterOutlet} from '@angular/router';
 
 
 @Component({
@@ -16,11 +16,15 @@ import {RouterOutlet} from '@angular/router';
     MenuComponent,
     RouterOutlet,
     MatIconButton,
+    RouterLink,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'angular-webshop';
+
+  constructor(protected router: Router) {
+  }
 
 }

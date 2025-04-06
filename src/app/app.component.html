@@ -5,8 +5,8 @@
   <mat-sidenav-content>
     <mat-toolbar class="navbar-container">
       <button mat-icon-button class="navbar-menu" (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-      <div class="navbar-logo">XCP</div>
-      <button mat-icon-button class="navbar-user" (click)="sidenav.toggle()"><mat-icon>account_circle</mat-icon></button>
+      <div class="navbar-logo" (click)="this.router.navigateByUrl('home')">XCP</div>
+      <button mat-icon-button class="navbar-user" routerLink="/profile"><mat-icon>account_circle</mat-icon></button>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

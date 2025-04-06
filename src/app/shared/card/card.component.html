@@ -1,0 +1,15 @@
+<mat-card class="card">
+  <img mat-card-image (click)="onCardClick()" src="{{ product.image }}" alt="{{ product.name }}" />
+  <mat-card-content>
+    <div class="card-title">
+      {{ product.name }}
+    </div>
+    <div class="card-price">
+      {{ product.price | huCurrency }}
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-icon-button (click)="onFavorite()"><mat-icon>favorite</mat-icon></button>
+    <button mat-flat-button (click)="onAddToCart()">Kosárba</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,72 @@
+
+
+<div class="main">
+  <div class="main-container">
+    <div class="container-title">Profilom</div>
+    <div class="container-content">
+      <div class="profile-box">
+        <mat-tab-group>
+          <mat-tab label="Profilom">
+            <div class="profile-tab">
+              <h2>Saját adatok szerkesztése</h2>
+              <form [formGroup]="userDetailsForm" (ngSubmit)="onDetailsSubmit()">
+                <mat-form-field>
+                  <mat-label>Név</mat-label>
+                  <input matInput formControlName="name" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>E-mail</mat-label>
+                  <input matInput formControlName="email" required>
+                </mat-form-field>
+                <button mat-flat-button type="submit" [disabled]="!userDetailsForm.valid">Adatok megváltoztatása</button>
+              </form>
+              <h2>Jelszó szerkesztése</h2>
+              <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+                <mat-form-field>
+                  <mat-label>Új jelszó</mat-label>
+                  <input matInput type="password" formControlName="password" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Új jelszó megerősítése</mat-label>
+                  <input matInput type="password" formControlName="confirmPassword" required>
+                </mat-form-field>
+                <button mat-flat-button type="submit" [disabled]="!passwordForm.valid">Jelszó megváltoztatása</button>
+              </form>
+            </div>
+          </mat-tab>
+          <mat-tab label="Rendeléseim">
+            <div class="orders-tab">
+              <h2>Rendeléseim</h2>
+              <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef>Azonosító</th>
+                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef>Dátum</th>
+                  <td mat-cell *matCellDef="let element"> {{element.date | date:'fullDate':'':'hu-HU'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="items">
+                  <th mat-header-cell *matHeaderCellDef>Termékek</th>
+                  <td mat-cell *matCellDef="let element"> {{element.items}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                  <th mat-header-cell *matHeaderCellDef>Összeg</th>
+                  <td mat-cell *matCellDef="let element"> {{element.price | huCurrency }} </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</div>
+

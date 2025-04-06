@@ -1,0 +1,21 @@
+<div class="main">
+  <div class="main-container">
+    <div class="form-card">
+      <div class="title">Bejelentkezés</div>
+      <div class="form">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <mat-form-field>
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Jelszó</mat-label>
+            <input matInput type="password" formControlName="password" required>
+          </mat-form-field>
+          <button mat-flat-button type="submit" [disabled]="!loginForm.valid">Bejelentkezés</button>
+          <p>Még nincs fiókja? <a routerLink="/register">Regisztráljon!</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

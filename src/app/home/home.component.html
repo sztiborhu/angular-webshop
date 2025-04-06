@@ -1,16 +1,14 @@
-<!--<div class="hero">
-  <img src="https://cdn.mos.cms.futurecdn.net/56QCjSmF38j9xBURofZTHL.jpg">
+<div class="hero">
+  <img src="hero.jpeg" alt="Főoldalon lévő üdvözlő kép a weboldal nevével középen." />
 </div>
--->
+
 <div class="main">
   <div class="main-container">
     <div class="container-title">Termékajánló</div>
     <div class="container-content">
-      <app-card></app-card>
-      <app-card></app-card>
-      <app-card></app-card>
-      <app-card></app-card>
-      <app-card></app-card>
+      @for (product of products; track product.id) {
+        <app-card [product]=product (favorite)="handleFavorite($event)" (addToCart)="handleOnAddToCart($event)"></app-card>
+      }
     </div>
   </div>
 </div>

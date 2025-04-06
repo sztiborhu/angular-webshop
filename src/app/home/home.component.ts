@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import {CardComponent} from './sub/card/card.component';
-import {MatCard, MatCardActions, MatCardContent, MatCardImage} from '@angular/material/card';
-import {MatButton, MatIconButton} from '@angular/material/button';
-import {MatIcon} from '@angular/material/icon';
+import {Component, inject} from '@angular/core';
+import {CardComponent} from '../shared/card/card.component';
+import {ProductService} from '../shared/services/product.service';
+import {Observable} from 'rxjs';
+import {Product} from '../shared/model/product.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -13,5 +14,29 @@ import {MatIcon} from '@angular/material/icon';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  private _snackBar = inject(MatSnackBar);
 
+  constructor(private productService: ProductService) {
+  }
+
+  products$: Observable<Product[]> = new Observable<Product[]>();
+  products: Product[] = [];
+
+  ngOnInit() {
+    this.productService.getProducts().subscribe(productsArray => {
+      this.products = productsArray;
+    })
+  }
+
+  handleFavorite(product: Product) {
+    this._snackBar.open(product.name + ' hozzáadva a kedvencekhez.', 'Bezár', {
+      duration: 3000,
+    });
+  }
+
+  handleOnAddToCart(product: Product) {
+    this._snackBar.open(product.name + ' hozzáadva a kosárhoz.', 'Bezár', {
+      duration: 3000,
+    });
+  }
 }

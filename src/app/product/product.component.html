@@ -4,45 +4,58 @@
     <div class="container-content">
       <mat-card class="product-image-card">
         <mat-card-content class="product-image">
-          <img mat-card-image src="sample.png">
+          <img mat-card-image src="{{ product?.image }}" alt="{{ product?.name }}">
         </mat-card-content>
       </mat-card>
 
       <mat-card class="product-details-card">
         <mat-card-header>
-          <mat-card-title>NVIDIA RTX 4090</mat-card-title>
-          <mat-card-subtitle>Ár: 499.999 Ft</mat-card-subtitle>
+          <mat-card-title>{{ product?.name }}</mat-card-title>
+          <mat-card-subtitle>Ár: {{ product?.price | huCurrency }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <p>Ez egy nagyon jó videokártya, amely kiváló teljesítményt nyújt a legújabb játékokhoz.</p>
-          <table>
-            <tr>
-              <th>Jellemzők</th>
-              <th>Érték</th>
-            </tr>
-            <tr>
-              <td>Gyors</td>
-              <td>Igen</td>
-            </tr>
-            <tr>
-              <td>Fasza</td>
-              <td>Igen</td>
-            </tr>
+          <p>{{ product?.description}}</p>
+          <h3>Jellemzők</h3>
+          <table class="details">
+            @for (detail of details; track $index) {
+              <tr>
+                <td class="name">{{ detail['name'] }}</td>
+                <td class="detail">{{ detail['value'] }}</td>
+              </tr>
+            }
           </table>
+          <h3>Kategóriák</h3>
+          <mat-chip-set aria-label="Fish selection">
+            @for (category of product?.categories; track $index) {
+              <mat-chip>{{ category }}</mat-chip>
+            }
+          </mat-chip-set>
+          <h3>Mennyiség</h3>
           <div class="numeric-up-down">
             <button (click)="removeFromAmount()"><mat-icon>remove</mat-icon></button>
-            <span>{{amount}}</span>
+            <span>{{ amount }}</span>
             <button (click)="addToAmount()"><mat-icon>add</mat-icon></button>
           </div>
 
         </mat-card-content>
-        <mat-card-actions>
-          <button mat-fab extended color="primary">
+        <mat-card-actions align="end">
+          <button mat-fab (click)="handleOnAddToCart(this.product)" extended color="primary">
             <mat-icon>shopping_cart</mat-icon>
             Kosárba teszem
           </button>
         </mat-card-actions>
       </mat-card>
+    </div>
+  </div>
+</div>
+
+<div class="bottom">
+  <div class="main-container">
+    <div class="container-title">További termékek a {{ mainCategory }} kategóriában</div>
+    <div class="container-content">
+      @for (product of similarProducts; track $index) {
+        <app-card [product]=product (favorite)="handleFavorite($event)" (addToCart)="handleOnAddToCart($event)"></app-card>
+      }
     </div>
   </div>
 </div>
