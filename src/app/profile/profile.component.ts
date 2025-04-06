@@ -13,11 +13,11 @@ import {
   MatTable
 } from '@angular/material/table';
 import {DatePipe, registerLocaleData} from '@angular/common';
-import {Observable} from 'rxjs';
 import {OrderService} from '../shared/services/order.service';
 import {Order} from '../shared/model/order.model';
 import {HuCurrencyPipe} from '../shared/pipes/hu-currency.pipe';
 import localeHu from '@angular/common/locales/hu';
+import {ProductListComponent} from './product-list/product-list/product-list.component';
 
 registerLocaleData(localeHu);
 
@@ -45,6 +45,7 @@ registerLocaleData(localeHu);
     MatRowDef,
     HuCurrencyPipe,
     DatePipe,
+    ProductListComponent,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
@@ -57,7 +58,6 @@ export class ProfileComponent {
   orders: Order[] = [];
 
   displayedColumns: string[] = ['id', 'date', 'items', 'price'];
-  dataSource = this.orders;
 
 
   userDetailsForm = new FormGroup({
@@ -78,7 +78,7 @@ export class ProfileComponent {
       this.orders = ordersArray;
     })
 
-    console.log(this.orders)
+    console.log(this.orders[0].items);
   }
 
   onDetailsSubmit() {
@@ -87,6 +87,10 @@ export class ProfileComponent {
 
   onPasswordSubmit() {
 
+  }
+
+  onRowClick(row: Order) {
+    console.log(row);
   }
 
   protected readonly HuCurrencyPipe = HuCurrencyPipe;

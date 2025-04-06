@@ -10,6 +10,7 @@ import {MatIcon} from '@angular/material/icon';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HuCurrencyPipe} from '../pipes/hu-currency.pipe';
 import {Product} from '../model/product.model';
+import {HoverHighlightDirective} from '../directive/hover-highlight.directive';
 
 @Component({
   selector: 'app-card',
@@ -22,6 +23,7 @@ import {Product} from '../model/product.model';
     MatIconButton,
     MatIcon,
     HuCurrencyPipe,
+    HoverHighlightDirective,
   ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss'

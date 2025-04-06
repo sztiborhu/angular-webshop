@@ -6,9 +6,9 @@ export interface Order {
   address: string;
   date: number;
   status: string;
-  items: [{
+  items: {
     productId: string;
     quantity: number;
     price: number;
-  }]
+  }[]
 }
