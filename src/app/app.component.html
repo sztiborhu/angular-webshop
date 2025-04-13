@@ -4,9 +4,14 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar class="navbar-container">
-      <button mat-icon-button class="navbar-menu" (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-      <div class="navbar-logo" (click)="this.router.navigateByUrl('home')">XCP</div>
-      <button mat-icon-button class="navbar-user" routerLink="/profile"><mat-icon>account_circle</mat-icon></button>
+      <div class="left">
+        <button mat-icon-button class="navbar-menu" (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+        <div class="navbar-logo" (click)="this.router.navigateByUrl('home')">XCP</div>
+      </div>
+      <div class="right">
+        <button mat-icon-button class="navbar-user" routerLink="/cart"><mat-icon>shopping_cart</mat-icon></button>
+        <button mat-icon-button class="navbar-user" routerLink="/profile"><mat-icon>account_circle</mat-icon></button>
+      </div>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

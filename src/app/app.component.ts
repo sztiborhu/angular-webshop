@@ -5,6 +5,7 @@ import {MatToolbar} from '@angular/material/toolbar';
 import {MatIcon} from '@angular/material/icon';
 import {MenuComponent} from './shared/menu/menu.component';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
+import {MatFormField, MatLabel} from '@angular/material/input';
 
 
 @Component({
@@ -27,4 +28,7 @@ export class AppComponent {
   constructor(protected router: Router) {
   }
 
+  search() {
+
+  }
 }

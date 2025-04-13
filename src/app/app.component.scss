@@ -21,6 +21,7 @@
   align-items: center;
   font-size: 28px;
   color: white;
+  margin-left: 20px;
 }
 
 .navbar-user {
@@ -30,5 +31,16 @@
 mat-sidenav-content {
   background-color: var(--body-background);
 }
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}
+
 
 
