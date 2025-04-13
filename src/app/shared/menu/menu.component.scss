@@ -13,7 +13,7 @@ a {
 }
 
 .active-list-item {
-  background-color: rgba(90, 74, 247, 0.3);
+  background-color: var(--accent-color);
   color: white;
   font-weight: bold;
 }

@@ -1,0 +1,21 @@
+.row {
+  display: grid;
+  column-gap: 25px;
+  grid-template-columns: 100px 1fr 50px 150px 50px;
+  align-items: center;
+}
+
+.image img {
+  width: 100px;
+  height: 100px;
+}
+
+@media (max-width: 650px) {
+  .row {
+    grid-template-columns: 0px 1fr 50px 150px 50px;
+    column-gap: 0px;
+  }
+  .image {
+    visibility: hidden;
+  }
+}

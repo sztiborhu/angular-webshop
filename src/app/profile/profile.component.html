@@ -6,6 +6,12 @@
         <mat-tab-group>
           <mat-tab label="Profilom">
             <div class="profile-tab">
+              <h2>Ideiglenes</h2>
+              <p>Ideiglenes belépési adatok:</p>
+              <p><strong>E-mail:</strong> {{localStorage.getItem('email')}}</p>
+              <p><strong>Jelszó:</strong> {{localStorage.getItem('password')}}</p>
+              <button mat-flat-button (click)="onLogout()">Kijelentkezés</button>
+
               <h2>Saját adatok szerkesztése</h2>
               <form [formGroup]="userDetailsForm" (ngSubmit)="onDetailsSubmit()">
                 <mat-form-field>

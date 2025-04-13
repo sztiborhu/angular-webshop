@@ -10,7 +10,11 @@
       </div>
       <div class="right">
         <button mat-icon-button class="navbar-user" routerLink="/cart"><mat-icon>shopping_cart</mat-icon></button>
-        <button mat-icon-button class="navbar-user" routerLink="/profile"><mat-icon>account_circle</mat-icon></button>
+        @if (localStorage.getItem("isLoggedIn") == "true") {
+          <button mat-icon-button class="navbar-user" routerLink="/profile"><mat-icon>account_circle</mat-icon></button>
+        } @else {
+          <button mat-icon-button class="navbar-user" routerLink="/login"><mat-icon>account_circle</mat-icon></button>
+        }
       </div>
     </mat-toolbar>
     <router-outlet></router-outlet>

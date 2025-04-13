@@ -4,6 +4,7 @@
       <div class="title">Bejelentkezés</div>
       <div class="form">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <p>Bármit be lehet írni a belépéshez!</p>
           <mat-form-field>
             <mat-label>E-mail</mat-label>
             <input matInput formControlName="email" required>

@@ -6,6 +6,7 @@ import {ProductsComponent} from './products/products.component';
 import {ProfileComponent} from './profile/profile.component';
 import {RegisterComponent} from './register/register.component';
 import {LoginComponent} from './login/login.component';
+import {CartComponent} from './cart/cart.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,11 @@ export const routes: Routes = [
     component: ProductComponent
   },
   {
+    path: 'products/:category',
+    title: 'XCP - Termékek',
+    component: ProductsComponent
+  },
+  {
     path: 'products',
     title: 'XCP - Termékek',
     component: ProductsComponent
@@ -27,6 +33,11 @@ export const routes: Routes = [
     path: 'profile',
     title: 'XCP - Profil',
     component: ProfileComponent
+  },
+  {
+    path: 'cart',
+    title: 'XCP - Kosár',
+    component: CartComponent
   },
   {
     path: 'register',

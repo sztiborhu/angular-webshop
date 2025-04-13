@@ -10,7 +10,7 @@ import {
 } from '@angular/material/card';
 import {MatFabButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';import {MatSnackBar} from '@angular/material/snack-bar';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {ProductService} from '../shared/services/product.service';
 import {Observable} from 'rxjs';
 import {Product} from '../shared/model/product.model';
@@ -33,6 +33,7 @@ import {MatChip, MatChipSet} from '@angular/material/chips';
     MatChipSet,
     MatChip,
     CardComponent,
+    RouterLink,
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'

@@ -12,7 +12,6 @@ export class HuCurrencyPipe implements PipeTransform {
 
     const formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
-    // Append currency symbol
     return `${formattedValue} Ft`;
   }
 

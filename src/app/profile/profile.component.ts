@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatTab, MatTabGroup} from '@angular/material/tabs';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
@@ -18,6 +18,11 @@ import {Order} from '../shared/model/order.model';
 import {HuCurrencyPipe} from '../shared/pipes/hu-currency.pipe';
 import localeHu from '@angular/common/locales/hu';
 import {ProductListComponent} from './product-list/product-list/product-list.component';
+import {User} from '../shared/model/user.model';
+import {UserService} from '../shared/services/user.service';
+import {Observable} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
 
 registerLocaleData(localeHu);
 
@@ -54,6 +59,8 @@ registerLocaleData(localeHu);
 
 
 export class ProfileComponent {
+  private _snackBar = inject(MatSnackBar);
+
   //private orders$: Observable<Order[]> = new Observable<Order[]>();
   orders: Order[] = [];
 
@@ -70,7 +77,12 @@ export class ProfileComponent {
     confirmPassword: new FormControl('', [Validators.required,])
   })
 
-  constructor(private orderService: OrderService) {
+  user$: Observable<User> | undefined = undefined;
+  user: User | undefined = undefined;
+
+
+  constructor(private orderService: OrderService, private userService: UserService, private router : Router) {
+
   }
 
   ngOnInit() {
@@ -78,15 +90,33 @@ export class ProfileComponent {
       this.orders = ordersArray;
     })
 
-    console.log(this.orders[0].items);
+    this.user$ = this.userService.getUser();
+    this.user$?.subscribe(user => {
+      this.user = user;
+    });
+
+    this.userDetailsForm.patchValue({
+      name: this.user?.name,
+      email: this.user?.email
+    })
   }
 
   onDetailsSubmit() {
+    if (this.user) {
+      this.user.name = this.userDetailsForm.get('name')?.value as string;
+      this.user.email = this.userDetailsForm.get('email')?.value as string;
+    }
+
+    this._snackBar.open('Saját adatok sikeresen megváltoztatva!', 'Bezár', {
+      duration: 3000,
+    });
 
   }
 
   onPasswordSubmit() {
-
+    this._snackBar.open('Jelszó sikeresen megváltoztatva!', 'Bezár', {
+      duration: 3000,
+    });
   }
 
   onRowClick(row: Order) {
@@ -94,4 +124,15 @@ export class ProfileComponent {
   }
 
   protected readonly HuCurrencyPipe = HuCurrencyPipe;
+  protected readonly localStorage = localStorage;
+
+  onLogout() {
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('email');
+    localStorage.removeItem('password');
+    this._snackBar.open('Sikeres kijelentkezés!', 'Bezár', {
+      duration: 3000,
+    });
+    this.router.navigate(['/login']);
+  }
 }

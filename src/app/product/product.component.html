@@ -27,7 +27,7 @@
           <h3>Kategóriák</h3>
           <mat-chip-set aria-label="Fish selection">
             @for (category of product?.categories; track $index) {
-              <mat-chip>{{ category }}</mat-chip>
+              <mat-chip routerLink="/products/{{ category }}">{{ category }}</mat-chip>
             }
           </mat-chip-set>
           <h3>Mennyiség</h3>
