@@ -5,11 +5,13 @@ import {Observable} from 'rxjs';
 import {Product} from '../shared/model/product.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {HoverHighlightDirective} from '../shared/directive/hover-highlight.directive';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-home',
   imports: [
     CardComponent,
+    MatButton,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
