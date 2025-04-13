@@ -1,11 +1,10 @@
-import {Directive, ElementRef, HostListener, Input, Renderer2} from '@angular/core';
+import {Directive, ElementRef, HostListener, Renderer2} from '@angular/core';
 
 @Directive({
-  selector: '[appHoverHighlight]'
+  selector: '[appCardHoverHighlight]'
 })
-export class HoverHighlightDirective {
+export class CardHoverHighlightDirective {
 
-  @Input('appHoverHighlight') highlightColor: string = 'yellow';
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit() {

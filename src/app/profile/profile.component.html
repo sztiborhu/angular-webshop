@@ -63,7 +63,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row (click)="onRowClick(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr appRowHoverHighlight mat-row (click)="onRowClick(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
             </div>
           </mat-tab>

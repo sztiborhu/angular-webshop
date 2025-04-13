@@ -23,6 +23,9 @@ import {UserService} from '../shared/services/user.service';
 import {Observable} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
+import {
+  RowHoverHighlightDirective
+} from '../shared/directive/row-hover-highlight.directive';
 
 registerLocaleData(localeHu);
 
@@ -51,6 +54,7 @@ registerLocaleData(localeHu);
     HuCurrencyPipe,
     DatePipe,
     ProductListComponent,
+    RowHoverHighlightDirective,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'

@@ -4,7 +4,6 @@ import {ProductService} from '../shared/services/product.service';
 import {Observable} from 'rxjs';
 import {Product} from '../shared/model/product.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {HoverHighlightDirective} from '../shared/directive/hover-highlight.directive';
 import {MatButton} from '@angular/material/button';
 
 @Component({

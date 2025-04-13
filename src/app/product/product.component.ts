@@ -66,7 +66,6 @@ export class ProductComponent {
           this.mainCategory = product.categories[0];
           this.details = product.details;
           found = true;
-          console.log(this.product.details)
           break;
         }
       }
