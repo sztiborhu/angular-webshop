@@ -1,40 +1,49 @@
 <div class="main">
   <div class="main-container">
+    @if (isLoading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+    @if (!isLoading) {
     <div class="container-title">Kosár</div>
-    <div class="container-content">
-      <div class="cart-box">
-        @if (items.length == 0) {
-          <div class="empty-cart">
-            <mat-icon>production_quantity_limits</mat-icon>
-            <p>Az Ön kosara üres.</p>
-          </div>
-        } @else {
-          @for (item of items; track $index) {
-            <app-cart-row [item]=item (removeFromCart)="handleRemove($event)"></app-cart-row>
+      <div class="container-content">
+        <div class="cart-box">
+          @if ((cartItems$ | async)?.length === 0) {
+            <div class="empty-cart">
+              <mat-icon>production_quantity_limits</mat-icon>
+              <p>Az Ön kosara üres.</p>
+            </div>
+          } @else {
+            @for (item of cartItems$ | async; track item.productId) {
+              <app-cart-row [item]="item" (removeFromCart)="handleRemove($event)" (decrease)="decreaseQuantity($event)" (increase)="increaseQuantity($event)"></app-cart-row>
+            }
           }
-        }
+        </div>
       </div>
-    </div>
+    }
   </div>
 </div>
-@if (items.length !== 0) {
-<div class="bottom">
-  <div class="main-container">
-    <div class="container-content">
-      <div class="cart-total">
-        <div class="left">
-          <!--<button mat-raised-button color="primary" (click)="handleCheckout()">Kosár törlése</button>-->
-        </div>
-        <div class="right">
-          <p class="total-title">Összesen: {{ totalPrice | huCurrency }}</p>
-          <div class="total-button">
-            <button mat-fab extended (click)="handleCheckout()"><mat-icon>attach_money</mat-icon>Fizetés</button>
+@if (!isLoading) {
+  @if ((cartItems$ | async)?.length !== 0) {
+  <div class="bottom">
+    <div class="main-container">
+      <div class="container-content">
+        <div class="cart-total">
+          <div class="left">
+            <button mat-fab (click)="handleClear()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <div class="right">
+            <p class="total-title">Összesen: {{ (totalPrice$ | async) ?? 0 | huCurrency }}</p>
+            <div class="total-button">
+              <button mat-fab extended (click)="handleCheckout()">
+                <mat-icon>attach_money</mat-icon>Fizetés
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  }
 }
-
-

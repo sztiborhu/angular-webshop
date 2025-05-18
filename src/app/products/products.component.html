@@ -1,9 +1,18 @@
 <div class="main">
   <div class="main-container">
-    <div class="container-title">{{ pageTitle }}</div>
+    <div class="container-title">{{pageTitle}}</div>
+
     <div class="container-content">
-      @for (product of products; track product.id) {
-        <app-card [product]=product (favorite)="handleFavorite($event)" (addToCart)="handleOnAddToCart($event)"></app-card>
+      @if (products$ | async; as products) {
+        @if (products.length > 0) {
+          @for (product of products; track product.id) {
+            <app-card [product]=product (favorite)="handleFavorite($event)" (addToCart)="handleOnAddToCart($event)"></app-card>
+          }
+        } @else {
+          <p>Nincs találat erre a kategóriára.</p>
+        }
+      } @else {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       }
     </div>
   </div>

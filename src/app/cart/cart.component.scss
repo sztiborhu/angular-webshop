@@ -49,7 +49,7 @@ body {
 .cart-total .right {
   margin-top: -20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   column-gap: 30px;
   justify-content: flex-start;
   align-items: flex-end;
@@ -85,8 +85,16 @@ body {
     width: 95%;
   }
 
+  .cart-total {
+    column-gap: 0;
+  }
+
   .cart-total .right {
     column-gap: 20px;
+  }
+
+  .cart-total .left button {
+    visibility: hidden;
   }
 }
 

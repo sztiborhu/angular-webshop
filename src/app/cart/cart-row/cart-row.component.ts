@@ -5,6 +5,7 @@ import {Product} from '../../shared/model/product.model';
 import {ProductService} from '../../shared/services/product.service';
 import {Observable} from 'rxjs';
 import {HuCurrencyPipe} from '../../shared/pipes/hu-currency.pipe';
+import {CartItem} from '../../shared/model/cartitem.model';
 
 @Component({
   selector: 'app-cart-row',
@@ -18,7 +19,9 @@ import {HuCurrencyPipe} from '../../shared/pipes/hu-currency.pipe';
 })
 export class CartRowComponent {
   @Input() item!: any;
-  @Output() removeFromCart = new EventEmitter<{productId: string, quantity: number, price: number}>();
+  @Output() removeFromCart = new EventEmitter<CartItem>();
+  @Output() decrease = new EventEmitter<CartItem>();
+  @Output() increase = new EventEmitter<CartItem>();
 
   private products$: Observable<Product[]> = new Observable<Product[]>();
 
@@ -30,6 +33,13 @@ export class CartRowComponent {
   }
 
   ngOnInit() {
+    this.productService.getProductById(this.item.productId).subscribe(product => {
+      this.product = product;
+    });
+
+
+
+    /*
     this.products$ = this.productService.getProducts();
 
     this.products$.subscribe(products => {
@@ -38,11 +48,19 @@ export class CartRowComponent {
           this.product = products[i];
         }
       }
-    })
+    })*/
 
   }
 
   removeItem() {
     this.removeFromCart.emit(this.item);
+  }
+
+  decreaseQuantity() {
+    this.decrease.emit(this.item);
+  }
+
+  increaseQuantity() {
+    this.increase.emit(this.item);
   }
 }

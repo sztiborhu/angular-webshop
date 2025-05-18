@@ -1,0 +1,81 @@
+<h2 mat-dialog-title>{{data ? 'Termék szerkesztése' : 'Új termék'}}</h2>
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Név</mat-label>
+      <input matInput formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Leírás</mat-label>
+      <textarea matInput formControlName="description" required rows="3"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Ár</mat-label>
+      <input matInput type="number" formControlName="price" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Készlet</mat-label>
+      <input matInput type="number" formControlName="quantity" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Kategóriák</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Kategóriák hozzáadása">
+        @for (category of productForm.get('categories')?.value; track category) {
+          <mat-chip-row (removed)="removeCategory(category)">
+            {{category}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        }
+      </mat-chip-grid>
+      <input placeholder="Új kategória..."
+             [matChipInputFor]="chipGrid"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             (matChipInputTokenEnd)="addCategory($event)">
+    </mat-form-field>
+
+    <div class="details-section">
+      <h3>Jellemzők</h3>
+      @for (detail of details; track $index) {
+        <div class="detail-row">
+          <mat-form-field appearance="fill">
+            <mat-label>Név</mat-label>
+            <input matInput [(ngModel)]="detail.name" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Érték</mat-label>
+            <input matInput [(ngModel)]="detail.value" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+          <button mat-icon-button color="warn" (click)="removeDetail($index)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      }
+      <button mat-stroked-button type="button" (click)="addDetail()">
+        <mat-icon>add</mat-icon>
+        Új jellemző
+      </button>
+    </div>
+
+    A képet alakítsd át base64 formátumra, és illeszd be az alábbi mezőbe.
+    <a href="https://www.base64-image.de/" target="_blank">https://www.base64-image.de/</a>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Kép Base64</mat-label>
+      <input matInput formControlName="image">
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">Mégse</button>
+    <button mat-flat-button color="primary" type="submit" [disabled]="!productForm.valid">
+      {{data ? 'Mentés' : 'Létrehozás'}}
+    </button>
+  </mat-dialog-actions>
+</form>
+ 

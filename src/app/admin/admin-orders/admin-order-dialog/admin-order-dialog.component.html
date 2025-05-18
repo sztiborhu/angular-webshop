@@ -1,0 +1,66 @@
+<div class="order-dialog-container">
+  <h2 mat-dialog-title>Rendelés részletei</h2>
+
+  @if (isLoading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+
+  <mat-dialog-content>
+    <div class="order-info">
+      <p><strong>Rendelés azonosító:</strong> {{data.id}}</p>
+      <p><strong>Felhasználó ID:</strong> {{data.user_id}}</p>
+      <p><strong>Dátum:</strong> {{data.date.toDate() | date:'fullDate':'':'hu-HU'}}</p>
+      <p><strong>Szállítási cím:</strong> {{data.address}}</p>
+      <p><strong>Összesen:</strong> {{data.total_price | huCurrency}}</p>
+    </div>
+
+    <form [formGroup]="orderForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Rendelés státusza</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="pending">Függőben</mat-option>
+          <mat-option value="processing">Feldolgozás alatt</mat-option>
+          <mat-option value="shipped">Szállítás alatt</mat-option>
+          <mat-option value="delivered">Kiszállítva</mat-option>
+          <mat-option value="cancelled">Törölve</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+
+    <h3>Rendelt termékek</h3>
+    <table mat-table [dataSource]="listItems" class="mat-elevation-z8">
+      <!-- Product Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Termék</th>
+        <td mat-cell *matCellDef="let item">{{item.name || 'Ismeretlen termék'}}</td>
+      </ng-container>
+
+      <!-- Quantity Column -->
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>Mennyiség</th>
+        <td mat-cell *matCellDef="let item">{{item.quantity}}</td>
+      </ng-container>
+
+      <!-- Price Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Egységár</th>
+        <td mat-cell *matCellDef="let item">{{item.price | huCurrency}}</td>
+      </ng-container>
+
+      <!-- Total Column -->
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef>Összesen</th>
+        <td mat-cell *matCellDef="let item">{{item.price * item.quantity | huCurrency}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button color="warn" (click)="onDelete()">Törlés</button>
+    <button mat-button (click)="onCancel()">Mégse</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!orderForm.valid">Mentés</button>
+  </mat-dialog-actions>
+</div>

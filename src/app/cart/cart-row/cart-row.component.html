@@ -6,10 +6,16 @@
     {{ product?.name }}
   </div>
   <div class="quantity">
-    <h3>{{ item.quantity }} db</h3>
+    <button mat-icon-button (click)="decreaseQuantity()">
+      <mat-icon>remove</mat-icon>
+    </button>
+    <h3>{{ item.quantity }}</h3>
+    <button mat-icon-button (click)="increaseQuantity()">
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
   <div class="price">
-    <h3>{{ item.price | huCurrency }}</h3>
+    <h3>{{ item.price * item.quantity | huCurrency }}</h3>
   </div>
   <div class="remove">
     <button mat-icon-button (click)="removeItem()">

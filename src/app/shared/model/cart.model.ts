@@ -1,10 +1,7 @@
+import {CartItem} from './cartitem.model';
+
 export interface Cart {
-  id: string;
-  user_email: string;
-  items: {
-    productId: string;
-    quantity: number;
-    price: number;
-  }[]
+  user_id: string;
+  items: CartItem[]
   totalPrice: number;
 }

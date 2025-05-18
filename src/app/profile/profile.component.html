@@ -3,42 +3,51 @@
     <div class="container-title">Profilom</div>
     <div class="container-content">
       <div class="profile-box">
-        <mat-tab-group>
+        <mat-tab-group dynamicHeight>
           <mat-tab label="Profilom">
+            @if (isLoadingProfile || isLoading) {
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            }
+            @if (!isLoading) {
             <div class="profile-tab">
-              <h2>Ideiglenes</h2>
-              <p>Ideiglenes belépési adatok:</p>
-              <p><strong>E-mail:</strong> {{localStorage.getItem('email')}}</p>
-              <p><strong>Jelszó:</strong> {{localStorage.getItem('password')}}</p>
-              <button mat-flat-button (click)="onLogout()">Kijelentkezés</button>
+              <h2>Műveletek</h2>
+              <button mat-flat-button (click)="onLogout()" class="logout-button">
+                <mat-icon>logout</mat-icon>
+                Kijelentkezés
+              </button>
 
               <h2>Saját adatok szerkesztése</h2>
               <form [formGroup]="userDetailsForm" (ngSubmit)="onDetailsSubmit()">
                 <mat-form-field>
                   <mat-label>Név</mat-label>
-                  <input matInput formControlName="name" required>
+                  <input matInput formControlName="name">
                 </mat-form-field>
                 <mat-form-field>
                   <mat-label>E-mail</mat-label>
-                  <input matInput formControlName="email" required>
+                  <input matInput formControlName="email">
                 </mat-form-field>
-                <button mat-flat-button type="submit" [disabled]="!userDetailsForm.valid">Adatok megváltoztatása</button>
-              </form>
-              <h2>Jelszó szerkesztése</h2>
-              <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+                <mat-form-field>
+                  <mat-label>Jelenlegi jelszó</mat-label>
+                  <input matInput type="password" formControlName="currentPassword">
+                </mat-form-field>
                 <mat-form-field>
                   <mat-label>Új jelszó</mat-label>
-                  <input matInput type="password" formControlName="password" required>
+                  <input matInput type="password" formControlName="password">
                 </mat-form-field>
                 <mat-form-field>
                   <mat-label>Új jelszó megerősítése</mat-label>
-                  <input matInput type="password" formControlName="confirmPassword" required>
+                  <input matInput type="password" formControlName="confirmPassword">
                 </mat-form-field>
-                <button mat-flat-button type="submit" [disabled]="!passwordForm.valid">Jelszó megváltoztatása</button>
+                <button mat-flat-button type="submit" [disabled]="!userDetailsForm.valid">Adatok megváltoztatása</button>
               </form>
             </div>
+            }
           </mat-tab>
           <mat-tab label="Rendeléseim">
+            @if (isLoadingOrders || isLoading) {
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            }
+            @if (!isLoading) {
             <div class="orders-tab">
               <h2>Rendeléseim</h2>
               <table mat-table [dataSource]="orders" class="mat-elevation-z8">
@@ -49,7 +58,7 @@
 
                 <ng-container matColumnDef="date">
                   <th mat-header-cell *matHeaderCellDef>Dátum</th>
-                  <td mat-cell *matCellDef="let element"> {{element.date | date:'fullDate':'':'hu-HU'}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.date.toDate() | date:'fullDate':'':'hu-HU'}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="items">
@@ -57,15 +66,21 @@
                   <td mat-cell *matCellDef="let element"> <app-product-list [items]="element.items"/> </td>
                 </ng-container>
 
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef>Státusz</th>
+                  <td mat-cell *matCellDef="let element"> {{element.status }} </td>
+                </ng-container>
+
                 <ng-container matColumnDef="price">
                   <th mat-header-cell *matHeaderCellDef>Összeg</th>
-                  <td mat-cell *matCellDef="let element"> {{element.price | huCurrency }} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.total_price | huCurrency }} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr appRowHoverHighlight mat-row (click)="onRowClick(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr appRowHoverHighlight mat-row (click)="openOrderDialog(row)" *matRowDef="let row; columns: displayedColumns"></tr>
               </table>
             </div>
+            }
           </mat-tab>
         </mat-tab-group>
       </div>

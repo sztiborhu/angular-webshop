@@ -76,6 +76,15 @@ body {
   background-color: var(--body-background);
 }
 
+.orders-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.orders-table-scroll table {
+  min-width: 700px;
+}
+
 @media (max-width: 650px) {
   .main-container {
     width: 95%;

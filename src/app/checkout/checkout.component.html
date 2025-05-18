@@ -1,0 +1,110 @@
+<div class="main">
+  <div class="main-container">
+    <div class="container-title">Rendelés véglegesítése</div>
+    <div class="container-content">
+      <div class="checkout-box">
+        <mat-tab-group dynamicHeight [(selectedIndex)]="currentTabIndex">
+          <mat-tab label="1. Szállítási adatok" [disabled]="!isFirstStage">
+            <div class="delivery-tab">
+              <h2>Szállítási adatok</h2>
+              <form [formGroup]="shippingForm" (ngSubmit)="onShippingSubmit()">
+                <mat-form-field>
+                  <mat-label>Név</mat-label>
+                  <input matInput formControlName="name">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Szállítási cím</mat-label>
+                  <input matInput formControlName="address">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Telefonszám</mat-label>
+                  <input matInput formControlName="phone">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Fizetési mód</mat-label>
+                  <mat-select formControlName="paymentMethod">
+                    <mat-option value="creditCard">Bankkártya</mat-option>
+                    <mat-option value="cashOnDelivery">Készpénzes utánvét</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <button mat-flat-button type="submit" [disabled]="!shippingForm.valid">Rendelés véglegesítése</button>
+              </form>
+            </div>
+          </mat-tab>
+          <mat-tab label="2. Fizetési adatok" [disabled]="!isSecondStage">
+            <div class="payment-tab">
+              @if (deliveryDetails.paymentMethod === 'creditCard') {
+                <h2>Bankkártyás fizetés</h2>
+                <form [formGroup]="paymentForm" (ngSubmit)="onPaymentSubmit()">
+                  <mat-form-field>
+                    <mat-label>Kártyaszám</mat-label>
+                    <input matInput maxlength="16" formControlName="cardNumber" matTooltip="Példa: 5465 4548 6953 2933">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Lejárati dátum</mat-label>
+                    <input matInput maxlength="5" formControlName="expiryDate" matTooltip="Példa: 05/28">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>CVC</mat-label>
+                    <input matInput maxlength="3" formControlName="cvc" matTooltip="Példa: 123">
+                  </mat-form-field>
+                  <button mat-flat-button type="submit" [disabled]="!paymentForm.valid">Fizetés</button>
+                </form>
+                <button mat-flat-button (click)="onBack()" style="margin-top: 20px">Vissza</button>
+              } @else {
+                <h2>Készpénzes utánvét</h2>
+                <p>Az utánvétel esetén a rendelés véglegesítése után a futárnak készpénzben kell kifizetni a rendelést.</p>
+                <div>
+                <button mat-flat-button (click)="onPaymentSubmit()">Tovább</button>
+                <button mat-flat-button (click)="onBack()" style="margin-top: 20px">Vissza</button>
+                </div>
+              }
+            </div>
+          </mat-tab>
+          <mat-tab label="3. Véglegesítés" [disabled]="!isThirdStage">
+            @if (isLoading) {
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            }
+            <div class="final-tab">
+              <h2>Rendelés véglegesítése</h2>
+              <p>Rendelendő termékek:</p>
+              @if (!isLoading) {
+              <table>
+                <thead>
+                  <tr>
+                    <th>Termék neve</th>
+                    <th>Mennyiség</th>
+                    <th>Ár</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of checkOutItems">
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>{{ product.price | huCurrency }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="total-price">
+                <p><strong>Összesen:</strong> {{ totalPrice | huCurrency }}</p>
+              </div>
+              }
+              <div class="order-details">
+                <p><strong>Rendelő neve:</strong> {{ deliveryDetails.name }}</p>
+                <p><strong>Szállítási cím:</strong> {{ deliveryDetails.address }}</p>
+                <p><strong>Telefonszám:</strong> {{ deliveryDetails.phone }}</p>
+                <p><strong>Fizetési mód:</strong> {{ deliveryDetails.paymentMethod === 'creditCard' ? 'Bankkártya' : 'Készpénzes utánvét' }}</p>
+              </div>
+
+              <div class="button-group">
+                <button mat-flat-button (click)="onConfirmOrder()">Rendelés leadása</button>
+                <button mat-flat-button (click)="onBack()" style="margin-top: 20px">Vissza</button>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </div>
+</div>
+

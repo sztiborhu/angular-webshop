@@ -1,8 +1,7 @@
 export interface Order {
   id: string;
-  card: boolean;
-  user_email: string;
-  price: number;
+  user_id: string;
+  total_price: number;
   address: string;
   date: number;
   status: string;

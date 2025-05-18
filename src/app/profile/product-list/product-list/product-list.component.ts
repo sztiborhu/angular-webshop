@@ -15,6 +15,14 @@ export class ProductListComponent {
   }
 
   ngOnInit() {
+    for (let i = 0; i < this.items.length; i++) {
+      this.productService.getProductById(this.items[i].productId).subscribe(product => {
+        this.filteredItems.push(product);
+      });
+    }
+
+
+    /*
     this.productService.getProducts().subscribe(productArray => {
       for (let i = 0; i < productArray.length; i++) {
         for (let j = 0; j < this.items.length; j++) {
@@ -23,7 +31,7 @@ export class ProductListComponent {
           }
         }
       }
-    });
+    });*/
   }
 
   generateText() {

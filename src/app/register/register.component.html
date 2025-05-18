@@ -2,10 +2,11 @@
   <div class="main-container">
     <div class="form-card">
       <div class="title">Regisztráció</div>
+      @if (isLoading) {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      }
       <div class="form">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-          <p>Bármit be lehet írni a regisztrációhoz!</p>
-
           <mat-form-field>
             <mat-label>Név</mat-label>
             <input matInput formControlName="name" matTooltip="Vezetéknév Keresztnév" required>

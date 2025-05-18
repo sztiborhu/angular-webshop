@@ -1,15 +1,36 @@
-<mat-nav-list>
-  <a mat-list-item routerLink="/" routerLinkActive="active-list-item" (click)="closeMenu()">
-    <mat-icon matListItemIcon>home</mat-icon>
-    <span matListItemTitle>Főoldal</span>
-  </a>
-  <a mat-list-item routerLink="/products/Videókártya" routerLinkActive="active-list-item" (click)="closeMenu()">
-    <span matListItemTitle>Videókártyák</span>
-  </a>
-  <a mat-list-item routerLink="/products/Processzor" routerLinkActive="active-list-item" (click)="closeMenu()">
-    <span matListItemTitle>Processzorok</span>
-  </a>
-  <a mat-list-item routerLink="/products/Periféria" routerLinkActive="active-list-item" (click)="closeMenu()">
-    <span matListItemTitle>Perifériák</span>
-  </a>
-</mat-nav-list>
+@if (!isAdmin) {
+  <mat-nav-list>
+    <a mat-list-item routerLink="/" routerLinkActive="active-list-item" (click)="closeMenu()">
+      <mat-icon matListItemIcon>home</mat-icon>
+      <span matListItemTitle>Főoldal</span>
+    </a>
+    <a mat-list-item routerLink="/products/" routerLinkActive="active-list-item" (click)="closeMenu()">
+      <span matListItemTitle>Összes termék</span>
+    </a>
+    <a mat-list-item routerLink="/products/Videókártya" routerLinkActive="active-list-item" (click)="closeMenu()">
+      <span matListItemTitle>Videókártyák</span>
+    </a>
+    <a mat-list-item routerLink="/products/Processzor" routerLinkActive="active-list-item" (click)="closeMenu()">
+      <span matListItemTitle>Processzorok</span>
+    </a>
+    <a mat-list-item routerLink="/products/Periféria" routerLinkActive="active-list-item" (click)="closeMenu()">
+      <span matListItemTitle>Perifériák</span>
+    </a>
+  </mat-nav-list>
+} @else {
+  <mat-nav-list>
+    <a mat-list-item routerLink="/admin" routerLinkActive="active-list-item" (click)="closeMenu()">
+      <mat-icon matListItemIcon>home</mat-icon>
+      <span matListItemTitle>Főoldal</span>
+    </a>
+    <a mat-list-item routerLink="/admin/products" routerLinkActive="active-list-item" (click)="closeMenu()">
+      <span matListItemTitle>Termékek</span>
+    </a>
+    <a mat-list-item routerLink="/admin/orders" routerLinkActive="active-list-item" (click)="closeMenu()">
+      <span matListItemTitle>Rendelések</span>
+    </a>
+    <a mat-list-item routerLink="/admin/users" routerLinkActive="active-list-item" (click)="closeMenu()">
+      <span matListItemTitle>Felhasználók</span>
+    </a>
+  </mat-nav-list>
+}

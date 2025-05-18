@@ -63,6 +63,10 @@ body {
   gap: 10px;
 }
 
+mat-progress-bar {
+  width: 100%;
+}
+
 @media (max-width: 650px) {
   .hero-text {
     font-size: 20px;

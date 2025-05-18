@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Rendelés részletei</h2>
+<mat-dialog-content>
+  <p><strong>Rendelés azonosító:</strong> {{data.id}}</p>
+  <p><strong>Dátum:</strong> {{data.date.toDate() | date:'fullDate':'':'hu-HU'}}</p>
+  <p><strong>Státusz:</strong> {{data.status}}</p>
+  <p><strong>Összeg:</strong> {{data.total_price | huCurrency}}</p>
+  <h3>Termékek</h3>
+  <ul>
+    <li *ngFor="let item of listItems">
+      {{item.quantity}} x {{item.productName}} ({{item.price | huCurrency}})
+    </li>
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onClose()">Bezár</button>
+</mat-dialog-actions>

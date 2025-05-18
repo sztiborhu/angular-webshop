@@ -3,17 +3,22 @@
   <div class="hero-text">
     <h1>Üdvözöljük a Webshopban!</h1>
     <p>Fedezze fel legújabb termékeinket és ajánlatainkat!</p>
-    <button mat-raised-button color="primary">Fedezze fel most!</button>
+    <button mat-raised-button color="primary" (click)="goToProducts()">Fedezze fel most!</button>
   </div>
 </div>
 
 <div class="main">
+  @if (products$ | async; as products) {
   <div class="main-container">
     <div class="container-title">Termékajánló</div>
+
     <div class="container-content">
-      @for (product of products; track product.id) {
-        <app-card [product]=product (favorite)="handleFavorite($event)" (addToCart)="handleOnAddToCart($event)"></app-card>
-      }
+        @for (product of products; track product.id) {
+          <app-card [product]=product (favorite)="handleFavorite($event)" (addToCart)="handleOnAddToCart($event)"></app-card>
+        }
     </div>
   </div>
+  } @else {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
 </div>

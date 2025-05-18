@@ -1,0 +1,46 @@
+.order-dialog-container {
+  padding: 20px;
+
+  .order-info {
+    margin-bottom: 20px;
+
+    p {
+      margin: 8px 0;
+    }
+  }
+
+  form {
+    margin-bottom: 20px;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  h3 {
+    margin: 20px 0;
+  }
+
+  table {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .mat-column-product {
+    width: 40%;
+  }
+
+  .mat-column-quantity {
+    width: 15%;
+    text-align: center;
+  }
+
+  .mat-column-price, .mat-column-total {
+    width: 20%;
+    text-align: right;
+  }
+
+  mat-dialog-actions {
+    padding: 8px 0;
+  }
+} 

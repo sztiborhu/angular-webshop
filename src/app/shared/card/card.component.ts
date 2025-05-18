@@ -20,8 +20,6 @@ import {CardHoverHighlightDirective} from '../directive/card-hover-highlight.dir
     MatCardImage,
     MatCardActions,
     MatButton,
-    MatIconButton,
-    MatIcon,
     HuCurrencyPipe,
     CardHoverHighlightDirective,
   ],
@@ -38,7 +36,7 @@ export class CardComponent {
 
   onCardClick() {
     if (this.route.snapshot.url[0].path == "product") {
-      this.router.navigateByUrl("/product/" + this.product.id).then(promise => window.location.reload());
+      this.router.navigateByUrl("/product/" + this.product.id);
     } else {
       this.router.navigateByUrl("/product/" + this.product.id);
     }
